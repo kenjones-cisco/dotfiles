@@ -1,0 +1,53 @@
+[color]
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+
+[user]
+	name = kenjones
+	email = kenjones@cisco.com
+
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+	unstage = reset HEAD --
+	undo = reset --soft HEAD^
+	last = log -1 HEAD
+	ls = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate
+	ll = log --pretty=format:\"%C(yellow)%h%Cred%d\\\\ %Creset%s%Cblue\\\\ [%cn]\" --decorate --numstat
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	le = log --oneline --decorate
+	fl = log -u
+	dl = !git ll -1
+	dlc = diff --cached HEAD^
+	la = !git config -l | grep alias | cut -c 7-
+	caan = commit --all --amend --no-edit
+	patch = !bash -c 'git diff $(git merge-base "$1" "$2") "$2" "${@: 3}" ' -
+	exec = !git ls-tree -r HEAD | grep ^100755
+	execls = !git exec | awk '{ print $4 }'
+	nexec = !git ls-tree -r HEAD | grep -v ^100755
+	nexecls = !git nexec | awk '{ print $4 }'
+	rso = remote show origin
+	rpo = remote prune origin
+	perm-reset = !git diff -p -R --no-color | grep -E \"^(diff|(old|new) mode)\" --color=never | git apply
+
+[push]
+	default = current
+
+[pull]
+	default = current
+[core]
+	trustctime = false
